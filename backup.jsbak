@@ -1,0 +1,35 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+
+const Home = () => {
+    const [user, setUser] = useState([])
+    useEffect(() => {
+        const mengambilBuku = async () => {
+            axios({
+                method: 'GET',
+                url: "https://backendptm.dendirenaldo.com/artikel"
+            }).catch((err) => {
+                console.error(err.response)
+            }).then((user) => {
+                console.log(user.data.data)
+                setUser(user.data.data)
+
+            })
+        }
+        mengambilBuku()
+    }, [])
+    return (
+        <>
+
+            {user.length > 0 && user.map((value, index, arr) => (
+
+                <h1 style={{ fontsize: 20, backgroundColor: 'red' }}> {value.email}</h1>
+
+
+
+            ))}
+        </>
+    )
+}
+
+export default Home
